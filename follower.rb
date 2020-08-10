@@ -29,5 +29,17 @@ class Follower
         all.select {|follower| follower.age >= age}
     end
 
+    def my_cults_slogans
+        cults.map {|cult| cult.slogan}
+    end
+
+    def self.most_active
+        all.max_by {|cultist| cultist.cults.count }
+    end
+
+    def self.top_three
+        all.max_by(3) {|cultist| cultist.cults.count }
+    end
+
     
 end

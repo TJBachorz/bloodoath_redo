@@ -41,4 +41,41 @@ class Cult
     def self.find_by_founding_year founding_year
         all.find {|cult| cult.founding_year == founding_year}
     end
+
+    def average_age 
+        ages = followers.map(&:age)
+        ages.reduce(:+).to_f / followers.length
+    end
+
+    def my_followers_mottos
+        followers.map do |follower|
+            follower.life_motto
+        end
+    end
+
+    def self.least_popular
+        all.min_by {|cult| cult.cult_population}
+    end
+
+    def self.most_common_location
+        locations = all.map {|cult| cult.location}
+        highest_count = 0
+        popular_location = ''
+        locations.each do |location|
+            if locations.count(location) > highest_count
+                highest_count = locations.count(location)
+                popular_location = location
+            end
+        end
+        popular_location 
+    end
+
+    # def self.most_common_location       
+    #     locations = all.map do |cult|          
+    #         cult.location
+    #     end
+    #     locations.max_by {|i| locations.count(i)}
+    # end
+
+
 end
