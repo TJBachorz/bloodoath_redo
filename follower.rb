@@ -41,5 +41,10 @@ class Follower
         all.max_by(3) {|cultist| cultist.cults.count }
     end
 
+    def fellow_cult_members
+        cults = self.cults
+        fellow_cultists = cults.map {|cult| cult.followers}.flatten 
+        fellow_cultists.delete_if {|follower| follower == self}
+    end
     
 end
